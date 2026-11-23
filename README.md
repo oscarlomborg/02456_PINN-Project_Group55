@@ -1,105 +1,54 @@
-# Getting Started
+# Physics-Informed Neural Networks (PINNs)
 
-This guide explains how to download this GitHub project, open it in Visual Studio Code (VS Code), and create its Conda environment using `dlenv.yml`.
+**02456 Deep Learning – DTU, Fall 2026**
 
-## Prerequisites
+**Group 55**
 
-Install the following before you begin:
+This repository contains our implementation of Physics-Informed Neural Networks (PINNs) for Project 1 in the course 02456 Deep Learning at the Technical University of Denmark (DTU).
 
-- [Git](https://git-scm.com/downloads)
-- [Visual Studio Code](https://code.visualstudio.com/)
-- [Miniconda](https://www.anaconda.com/docs/getting-started/miniconda/main) or [Anaconda](https://www.anaconda.com/download)
+The project explores how neural networks can learn solutions to differential equations by combining training data with known physical laws.
 
-Verify that Git and Conda are installed by running:
+## Project Overview
 
-```bash
-git --version
-conda --version
-```
+The project consists of three tasks:
 
-If `conda` is not recognized, open an Anaconda Prompt (Windows) or initialize Conda in your terminal.
+- **Task 1 – Analytical Derivatives:** Derivation of first- and second-order derivatives for a feedforward neural network with one hidden layer and tanh activation.
 
-## 1. Clone the GitHub repository
+- **Task 2 – Damped Harmonic Oscillator:** Implementation of a PINN to solve the damped harmonic oscillator equation. We compare manually derived gradients with PyTorch autograd, investigate different physics weights, and compare soft and hard enforcement of initial conditions.
 
-1. Open this repository on GitHub.
-2. Click the green **Code** button and copy the **HTTPS** URL.
-3. Open VS Code.
-4. Open the Command Palette with **Ctrl+Shift+P** (Windows/Linux) or **Cmd+Shift+P** (macOS).
-5. Search for and select **Git: Clone**.
-6. Paste the repository URL and choose where to save the folder on your computer.
-7. When prompted, select **Open** to open the cloned project in VS Code.
+- **Task 3 – Heat Equation:** Application of a PINN to the one-dimensional heat equation, comparing its predictions with the analytical solution.
 
-**Alternative — use the terminal:**
+## Requirements
+
+The project uses Python with NumPy, PyTorch, SciPy, Matplotlib, and Jupyter Notebook.
+
+We have included a `dlenv.yml` file that can be used to set up the environment with all the required packages.
+
+## Running the Code
+
+First, clone the repository:
 
 ```bash
-git clone https://github.com/USERNAME/REPOSITORY.git
-cd REPOSITORY
-code .
+git clone https://github.com/oscarlomborg/02456_PINN-Project_Group55.git
+cd 02456_PINN-Project_Group55
 ```
 
-Replace `USERNAME` and `REPOSITORY` with the values from the GitHub URL. If `code .` does not work, open the cloned folder through **File → Open Folder** in VS Code.
-
-## 2. Create the Conda environment
-
-In VS Code, open **Terminal → New Terminal**. Make sure the terminal is in the project folder containing `dlenv.yml`, then run:
+If you use Conda, you can set up the environment using the provided file:
 
 ```bash
 conda env create -f dlenv.yml
 ```
 
-Conda will create an environment and install the dependencies listed in `dlenv.yml`. This may take a few minutes.
-
-Find the environment name by opening `dlenv.yml` and checking the `name:` field, for example:
-
-```yaml
-name: dlenv
-```
-
-Activate the environment using that name:
+Then activate the environment using the name specified in `dlenv.yml` and start Jupyter:
 
 ```bash
-conda activate dlenv
+jupyter notebook
 ```
 
-> If the `name:` field is different, replace `dlenv` with the actual name.
-
-You can confirm that the environment exists by running:
+Alternatively, you can install the main packages manually:
 
 ```bash
-conda env list
+pip install numpy torch scipy matplotlib jupyter
 ```
 
-## 3. Select the environment in VS Code
-
-1. Install the **Python** extension by Microsoft in VS Code if you have not already.
-2. Open the Command Palette (**Ctrl+Shift+P** or **Cmd+Shift+P**).
-3. Select **Python: Select Interpreter**.
-4. Choose the Python interpreter belonging to the Conda environment you just created.
-
-VS Code will then use that environment for Python files and notebooks when the corresponding interpreter/kernel is selected.
-
-## 4. Work on the project later
-
-When reopening the project:
-
-```bash
-conda activate dlenv
-```
-
-If the dependencies in `dlenv.yml` change, update your environment with:
-
-```bash
-conda env update -f dlenv.yml --prune
-```
-
-To leave the environment:
-
-```bash
-conda deactivate
-```
-
-## Troubleshooting
-
-- **`conda: command not found`:** Try Anaconda Prompt (Windows) or configure Conda for your shell using `conda init` and restart the terminal.
-- **`EnvironmentFileNotFound`:** Make sure you are in the repository folder and that the file is named exactly `dlenv.yml`.
-- **Environment not visible in VS Code:** Restart VS Code or use **Python: Select Interpreter** to locate it manually.
+Once Jupyter is running, open the notebooks and run the cells in order. Some experiments take longer to train, and a few cells use saved model parameters to avoid repeating the training.
